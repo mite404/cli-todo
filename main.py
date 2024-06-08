@@ -25,6 +25,7 @@ class TaskList:
     def finish_task(self, title):
         for task in self.current_tasks:
             if task.title == title:
+                task.toggle_complete()
                 self.current_tasks.remove(task)
                 self.completed_tasks.append(task)
                 return f"{title} has been moved to DONE!"
@@ -39,9 +40,10 @@ def main():
         print("+ 1. Add a New Task")
         print("+ 2. Complete a Task")
         print("+ 3. View Current Tasks")
-        print("+ 4. Exit")
+        print("+ 4. View Completed Tasks")
+        print("+ 5. Exit")
 
-        option = input("Enter your choice (1-4): ")
+        option = input("Enter your choice (1-5): ")
 
         if option == "1":
             title = input("Enter the Title: ")
@@ -59,6 +61,13 @@ def main():
                 print(f"Title: {task.title}, Description: {task.description}, Completed: {task.is_complete}")
 
         elif option == "4":
+            if current.completed_tasks:
+                for task in current.completed_tasks:
+                    print(f"Title: {task.title}, Description: {task.description}, Completed: {task.is_complete}")
+            else:
+                print("Currently there are no Completed Tasks")
+
+        elif option == "5":
             print("Goodbye...")
             break
 
